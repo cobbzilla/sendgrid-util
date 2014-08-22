@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.cobbzilla.util.json.JsonUtil;
 import org.cobbzilla.wizard.client.NotFoundException;
@@ -14,6 +15,7 @@ import java.util.Map;
 
 import static org.cobbzilla.util.string.StringUtil.urlParameterize;
 
+@Accessors(chain=true)
 @NoArgsConstructor @Slf4j
 public class SendGrid {
 
@@ -26,7 +28,6 @@ public class SendGrid {
     public static final String BASE_URI = "https://api.sendgrid.com/api/";
 
     @Getter @Setter private SendGridCredentials credentials;
-    public SendGrid withCredentials (SendGridCredentials credentials) { this.credentials = credentials; return this; }
 
     @Getter(value = AccessLevel.PROTECTED, lazy=true) private final SendGridApiClient apiClient = initApiClient();
 

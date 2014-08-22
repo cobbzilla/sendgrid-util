@@ -3,22 +3,23 @@ package org.cobbzilla.sendgrid;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.cobbzilla.util.json.JsonUtil;
 import org.cobbzilla.util.reflect.ReflectionUtil;
 
-@NoArgsConstructor
+@NoArgsConstructor @Accessors(chain=true)
 public class SendGridPermissions {
 
     @Getter @Setter private int email = 0;
-    public SendGridPermissions withEmail() { email = 1; return this; }
+    public SendGridPermissions setEmail() { email = 1; return this; }
 
     @Getter @Setter private int web = 0;
-    public SendGridPermissions withWeb() { web = 1; return this; }
+    public SendGridPermissions setWeb() { web = 1; return this; }
 
     @Getter @Setter private int api = 0;
-    public SendGridPermissions withApi() { api = 1; return this; }
+    public SendGridPermissions setApi() { api = 1; return this; }
 
-    public SendGridPermissions withAll() { email = web = api = 1; return this; }
+    public SendGridPermissions setAll() { email = web = api = 1; return this; }
 
     public SendGridPermissions (String json) {
         try {
