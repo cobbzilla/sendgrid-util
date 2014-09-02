@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.cobbzilla.util.json.JsonUtil;
+import org.cobbzilla.wizard.client.ApiConnectionInfo;
 import org.cobbzilla.wizard.client.NotFoundException;
 import org.cobbzilla.wizard.util.RestResponse;
 
@@ -27,11 +28,11 @@ public class SendGrid {
 
     public static final String BASE_URI = "https://api.sendgrid.com/api/";
 
-    @Getter @Setter private SendGridCredentials credentials;
+    @Getter @Setter private ApiConnectionInfo credentials;
 
     @Getter(value = AccessLevel.PROTECTED, lazy=true) private final SendGridApiClient apiClient = initApiClient();
 
-    public SendGrid (SendGridCredentials credentials) {
+    public SendGrid (ApiConnectionInfo credentials) {
         this.credentials = credentials;
     }
 
@@ -41,8 +42,8 @@ public class SendGrid {
 
     private Map<String, String> initParams() {
         final Map<String, String> params = new HashMap<>();
-        params.put(PARAM_API_USER, credentials.getApiUser());
-        params.put(PARAM_API_KEY, credentials.getApiKey());
+        params.put(PARAM_API_USER, credentials.getUser());
+        params.put(PARAM_API_KEY, credentials.getPassword());
         return params;
     }
 
@@ -59,7 +60,7 @@ public class SendGrid {
         }
     }
 
-    public SendGridCredentials addUser (SendGridUser user) throws Exception {
+    public ApiConnectionInfo addUser (SendGridUser user) throws Exception {
 
         final Map<String, String> params = initParams();
         params.put(PARAM_USERNAME, user.getUsername());
@@ -70,10 +71,13 @@ public class SendGrid {
         if (!response.json.contains("success")) {
             throw new IllegalStateException("Error adding user: "+response.json);
         }
-        return new SendGridCredentials(user.getUsername(), user.getPassword());
+        final ApiConnectionInfo info = new ApiConnectionInfo();
+        info.setUser(user.getUsername());
+        info.setPassword(user.getPassword());
+        return info;
     }
 
-    public SendGridCredentials addOrEditUser (SendGridUser user) throws Exception {
+    public ApiConnectionInfo addOrEditUser (SendGridUser user) throws Exception {
         SendGridUser found = findUser(user.getUsername());
         if (found == null) {
             return addUser(user);
