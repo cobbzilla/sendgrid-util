@@ -4,7 +4,7 @@ import lombok.NoArgsConstructor;
 import org.apache.http.entity.ContentType;
 import org.cobbzilla.util.string.StringUtil;
 import org.cobbzilla.wizard.client.ApiClientBase;
-import org.cobbzilla.wizard.client.ApiConnectionInfo;
+import org.cobbzilla.util.http.ApiConnectionInfo;
 import org.cobbzilla.wizard.util.RestResponse;
 
 import java.util.Map;
