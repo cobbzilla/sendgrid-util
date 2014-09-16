@@ -26,6 +26,9 @@ public class SendGrid {
     private static final String PARAM_PASSWORD = "password";
     private static final String PARAM_PERMISSIONS = "permissions";
 
+    public static final String SMTP_RELAY = "smtp.sendgrid.net";
+    public static final int SMTP_RELAY_PORT = 587;
+
     public static final String BASE_URI = "https://api.sendgrid.com/api/";
 
     @Getter @Setter private ApiConnectionInfo credentials;
