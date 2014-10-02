@@ -74,6 +74,10 @@ public class SendGrid {
         if (!response.json.contains("success")) {
             throw new IllegalStateException("Error adding user: "+response.json);
         }
+        return getApiConnectionInfo(user);
+    }
+
+    protected ApiConnectionInfo getApiConnectionInfo(SendGridUser user) {
         final ApiConnectionInfo info = new ApiConnectionInfo();
         info.setUser(user.getUsername());
         info.setPassword(user.getPassword());
