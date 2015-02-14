@@ -8,7 +8,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.cobbzilla.util.json.JsonUtil;
 import org.cobbzilla.util.http.ApiConnectionInfo;
-import org.cobbzilla.wizard.client.NotFoundException;
+import org.cobbzilla.wizard.api.NotFoundException;
 import org.cobbzilla.wizard.util.RestResponse;
 
 import java.util.HashMap;
