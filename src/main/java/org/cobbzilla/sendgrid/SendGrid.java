@@ -14,6 +14,7 @@ import org.cobbzilla.wizard.util.RestResponse;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.cobbzilla.util.daemon.ZillaRuntime.die;
 import static org.cobbzilla.util.string.StringUtil.urlParameterize;
 
 @Accessors(chain=true)
@@ -72,7 +73,7 @@ public class SendGrid {
 
         final RestResponse response = getApiClient().post("credentials/add.json", params);
         if (!response.json.contains("success")) {
-            throw new IllegalStateException("Error adding user: "+response.json);
+            die("Error adding user: " + response.json);
         }
         return getApiConnectionInfo(user);
     }
@@ -103,7 +104,7 @@ public class SendGrid {
 
         final RestResponse response = getApiClient().post("credentials/edit.json", params);
         if (!response.json.contains("success")) {
-            throw new IllegalStateException("Error editing user: "+response.json);
+            die("Error editing user: "+response.json);
         }
     }
 
@@ -112,7 +113,7 @@ public class SendGrid {
         params.put(PARAM_USERNAME, username);
         final RestResponse response = getApiClient().post("credentials/remove.json", params);
         if (!response.json.contains("success")) {
-            throw new IllegalStateException("Error adding user: "+response.json);
+            die("Error adding user: "+response.json);
         }
     }
 
