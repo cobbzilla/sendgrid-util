@@ -1,5 +1,6 @@
 package org.cobbzilla.sendgrid;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,8 +18,8 @@ import java.util.Map;
 import static org.cobbzilla.util.daemon.ZillaRuntime.die;
 import static org.cobbzilla.util.string.StringUtil.urlParameterize;
 
-@Accessors(chain=true)
-@NoArgsConstructor @Slf4j
+@Accessors(chain=true)  @NoArgsConstructor
+@Slf4j @JsonIgnoreProperties(ignoreUnknown=true)
 public class SendGrid {
 
     private static final String PARAM_API_USER = "api_user";

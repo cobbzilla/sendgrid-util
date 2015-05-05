@@ -1,6 +1,7 @@
 package org.cobbzilla.sendgrid;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,7 +10,9 @@ import lombok.experimental.Accessors;
 import org.cobbzilla.util.reflect.ReflectionUtil;
 import org.cobbzilla.util.string.StringUtil;
 
-@Accessors(chain=true) @NoArgsConstructor @EqualsAndHashCode(of="username")
+@Accessors(chain=true) @NoArgsConstructor
+@EqualsAndHashCode(of="username")
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class SendGridUser {
 
     public SendGridUser(SendGridJsonUser user) { ReflectionUtil.copy(this, user.getCredential()); }
@@ -18,6 +21,7 @@ public class SendGridUser {
 
     @Getter @Setter private String created_at;
     @Getter @Setter private String updated_at;
+    @Getter @Setter private String pw_updated_at;
 
     @JsonIgnore @Getter @Setter private String username;
 
