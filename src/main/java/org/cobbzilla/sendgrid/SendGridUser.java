@@ -7,8 +7,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.cobbzilla.util.daemon.ZillaRuntime;
 import org.cobbzilla.util.reflect.ReflectionUtil;
-import org.cobbzilla.util.string.StringUtil;
+
+import static org.cobbzilla.util.daemon.ZillaRuntime.empty;
 
 @Accessors(chain=true) @NoArgsConstructor
 @EqualsAndHashCode(of="username")
@@ -26,7 +28,7 @@ public class SendGridUser {
     @JsonIgnore @Getter @Setter private String username;
 
     @Getter @Setter private String password;
-    public boolean hasPassword() { return !StringUtil.empty(password); }
+    public boolean hasPassword() { return !empty(password); }
 
     // it's called "name" in the JSON responses, but username in requests
     public String getName () { return getUsername(); }
