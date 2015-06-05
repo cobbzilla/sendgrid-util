@@ -7,17 +7,16 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.cobbzilla.util.daemon.ZillaRuntime;
-import org.cobbzilla.util.reflect.ReflectionUtil;
 
 import static org.cobbzilla.util.daemon.ZillaRuntime.empty;
+import static org.cobbzilla.util.reflect.ReflectionUtil.copy;
 
 @Accessors(chain=true) @NoArgsConstructor
 @EqualsAndHashCode(of="username")
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class SendGridUser {
 
-    public SendGridUser(SendGridJsonUser user) { ReflectionUtil.copy(this, user.getCredential()); }
+    public SendGridUser(SendGridJsonUser user) { copy(this, user.getCredential()); }
 
     @Getter @Setter private long id;
 

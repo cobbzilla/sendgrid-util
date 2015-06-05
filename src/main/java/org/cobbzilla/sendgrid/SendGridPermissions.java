@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.cobbzilla.util.json.JsonUtil;
-import org.cobbzilla.util.reflect.ReflectionUtil;
+
+import static org.cobbzilla.util.daemon.ZillaRuntime.die;
+import static org.cobbzilla.util.json.JsonUtil.fromJson;
+import static org.cobbzilla.util.reflect.ReflectionUtil.copy;
 
 @NoArgsConstructor @Accessors(chain=true)
 public class SendGridPermissions {
@@ -23,9 +25,10 @@ public class SendGridPermissions {
 
     public SendGridPermissions (String json) {
         try {
-            ReflectionUtil.copy(this, JsonUtil.fromJson(json, getClass()));
+            copy(this, fromJson(json, getClass()));
         } catch (Exception e) {
-            throw new IllegalArgumentException("Invalid json: "+json+": "+e, e);
+            // print out the JSON, if the formats changes this lets us see what's unexpected
+            die("Invalid json: " + json + ": " + e, e);
         }
     }
 
